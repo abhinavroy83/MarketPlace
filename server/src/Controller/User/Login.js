@@ -15,7 +15,7 @@ const login = async (req, res) => {
         msg: "user not find",
       });
     }
-    let passwordmtch = bcrypt.compare(password, user.password);
+    let passwordmtch = await bcrypt.compare(password, user.password);
     if (passwordmtch) {
       const jwttoken = jwt.sign(
         { user: user.toJSON() },
@@ -24,11 +24,16 @@ const login = async (req, res) => {
           expiresIn: "30m",
         }
       );
+      console.log(user);
       res.json({
         status: "success",
         msg: "LoggedIN sucess",
         jwttoken,
         data: user,
+      });
+    } else {
+      res.json({
+        msg: "you have entered incorrect password",
       });
     }
   } catch (error) {

@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const connectDB = require("./src/Config/db");
@@ -6,10 +7,11 @@ const isloggedIn = require("./src/Middleware/isLoggedIn");
 const app = express();
 
 dotenv.config();
-
 connectDB();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.json({
@@ -29,7 +31,11 @@ app.get("/admin", isloggedIn, (req, res) => {
       msg: "you haved logged success",
       userID,
     });
-  } catch (error) {}
+  } catch (error) {
+    res.json({
+      status: "Failed",
+    });
+  }
 });
 
 //routes
