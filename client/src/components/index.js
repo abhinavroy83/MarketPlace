@@ -1,2 +1,3 @@
 import Input from "./Input";
-export { Input };
+import Authlayout from "./Authlayout";
+export { Input, Authlayout };

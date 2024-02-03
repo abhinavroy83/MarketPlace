@@ -2,20 +2,28 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../components/index";
 import axios from "axios";
-
+import { useDispatch } from "react-redux";
+import { login as authlogin } from "../store/authslice";
+import { useNavigate } from "react-router-dom";
 function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
   const onsubmit = async (data) => {
     console.log(data);
     try {
       const res = await axios.post("http://localhost:5000/user/login", data);
       if (res) {
-        console.log(res.data);
+        console.log(res.data.jwttoken);
         alert("Successfully logged");
+        localStorage.setItem("userdetails", JSON.stringify(res));
+        dispatch(authlogin({ token: res.data.jwttoken }));
+        Navigate("/");
       }
     } catch (error) {
       console.log(error);
