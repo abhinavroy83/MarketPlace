@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { login as authlogin } from "./store/authslice";
+import { Header } from "./components";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -11,7 +12,8 @@ function App() {
     }
   });
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-900 text-white">
+    <div className="flex flex-col  min-h-screen bg-gray-900 text-white">
+      <Header />
       <Outlet />
     </div>
   );

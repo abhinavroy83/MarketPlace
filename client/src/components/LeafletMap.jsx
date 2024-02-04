@@ -1,21 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useDispatch } from "react-redux";
+import { login as authlogin } from "../store/authslice";
 
 const LeafletMap = ({ onLocationReceived }) => {
   const mapContainerRef = useRef(null);
   const markerRef = useRef(null);
+  const dispatch = useDispatch();
   const [currentLocation, setCurrentLocation] = useState({
     lat: 0,
     lng: 0,
   });
-  console.log(onLocationReceived);
-
+  
   useEffect(() => {
     const [lat, lng] = onLocationReceived.split(",").map(parseFloat);
 
     if (mapContainerRef) {
-      const map = L.map(mapContainerRef.current).setView([lat, lng], 15);
+      const map = L.map(mapContainerRef.current).setView([lat, lng], 9);
       setCurrentLocation({ lat, lng });
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -44,6 +46,7 @@ const LeafletMap = ({ onLocationReceived }) => {
 
   useEffect(() => {
     console.log("Your location is ", currentLocation);
+    dispatch(authlogin({ location: currentLocation }));
   }, [currentLocation]);
 
   return (
@@ -51,7 +54,7 @@ const LeafletMap = ({ onLocationReceived }) => {
       ref={(div) => {
         mapContainerRef.current = div;
       }}
-      style={{ height: "400px", width: "400px" }}
+      style={{ height: "400px", width: "1000px" }}
     />
   );
 };
