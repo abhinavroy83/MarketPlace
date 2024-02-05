@@ -22,14 +22,14 @@ app.get("/", (req, res) => {
 
 app.get("/admin", isloggedIn, (req, res) => {
   try {
-    const user = req.user;
+    const user = req.user.user._id;
     // console.log(user);
-    const userID = user.user._id;
+    // const userID = user.user._id;
     // console.log(userID);
     res.json({
       Status: "Success",
       msg: "you haved logged success",
-      userID,
+      user,
     });
   } catch (error) {
     res.json({
@@ -40,7 +40,10 @@ app.get("/admin", isloggedIn, (req, res) => {
 
 //routes
 const user = require("./src/Routes/user");
+const product = require("./src/Routes/products");
+
 app.use("/user", user);
+app.use(product); 
 
 app.listen(process.env.PORT, () => {
   console.log("Running on https://localhost:3000/");
