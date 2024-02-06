@@ -25,15 +25,17 @@ function PostProduct({ isOpen, onClose }) {
         coordinates: [currentLocation.lat, currentLocation.lng],
       },
     };
-    console.log(senddata);
+    // console.log(senddata);
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/postProduct",
+        "https://marketplace-8nn9.onrender.com/api/postProduct",
         senddata,
         {
           headers: {
             jwttoken: `${token}`,
+            "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
       if (res) {

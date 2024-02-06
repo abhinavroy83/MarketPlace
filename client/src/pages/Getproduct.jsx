@@ -10,7 +10,7 @@ function Getproduct() {
     if (cuurentlocation) {
       axios
         .get(
-          `http://localhost:5000/api/getProducts?lat=${cuurentlocation.lat}&lng=${cuurentlocation.lng}`
+          `https://marketplace-8nn9.onrender.com/api/getProducts?lat=${cuurentlocation.lat}&lng=${cuurentlocation.lng}`
         )
         .then((res) => {
           // console.log("data get from api", res.data.Products);

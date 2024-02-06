@@ -17,7 +17,12 @@ function Login() {
   const onsubmit = async (data) => {
     console.log(data);
     try {
-      const res = await axios.post("http://localhost:5000/user/login", data);
+      const res = await axios.post("https://marketplace-8nn9.onrender.com/user/login", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
       if (res) {
         console.log(res.data.jwttoken);
         alert("Successfully logged");
@@ -32,7 +37,9 @@ function Login() {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="flex flex-col items-center justify-center border-2 border-solid border-red-500 px-4 py-10">
-        <h1 className="text-3xl font-bold underline text-red-400 my-2">Login</h1>
+        <h1 className="text-3xl font-bold underline text-red-400 my-2">
+          Login
+        </h1>
         <form onSubmit={handleSubmit(onsubmit)} className="flex flex-col">
           <Input
             label="Email"
