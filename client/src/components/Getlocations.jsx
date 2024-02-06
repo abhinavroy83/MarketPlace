@@ -28,10 +28,12 @@ function Getlocations() {
   return (
     <div className="flex flex-col justify-center">
       <Container>
-        <h1>Your current location</h1>
+        <p className="text-white font-dm-sans text-3xl font-bold leading-[144.023%]">
+          Your Current location
+        </p>
 
         {currentlocation && showmap ? (
-          <div className=" flex justify-center">
+          <div className=" flex justify-center py-2">
             <LeafletMap onLocationReceived={currentlocation} />
             {/* <p>{currentlocation}</p> */}
           </div>

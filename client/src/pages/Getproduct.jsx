@@ -13,7 +13,7 @@ function Getproduct() {
           `http://localhost:5000/api/getProducts?lat=${cuurentlocation.lat}&lng=${cuurentlocation.lng}`
         )
         .then((res) => {
-          console.log("data get from api", res.data.Products);
+          // console.log("data get from api", res.data.Products);
           setproducts(res.data.Products);
         })
         .catch((error) => console.log(error));
@@ -23,8 +23,11 @@ function Getproduct() {
     <div>
       {products.length > 0 ? (
         <div>
-          <h2>Products Near you</h2>
-          <div className="flex justify-evenly">
+          <p className="text-white font-dm-sans ml-3 text-2xl font-bold leading-[144.023%]">
+            Products Near you
+          </p>
+
+          <div className="flex flex-wrap justify-evenly py-2">
             {products.map((item, key) => (
               <div key={key} className="w-[250px] rounded-md border mx-2">
                 <img

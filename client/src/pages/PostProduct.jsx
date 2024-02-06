@@ -9,9 +9,9 @@ Modal.setAppElement("#root");
 function PostProduct({ isOpen, onClose }) {
   const currentLocation = useSelector((state) => state.auth.location);
   const token = useSelector((state) => state.auth.token);
-  console.log("token", token);
+  // console.log("token", token);
   // console.log(currentLocation);
-  console.log(currentLocation);
+  // console.log(currentLocation);
   const {
     register,
     handleSubmit,

@@ -11,7 +11,16 @@ connectDB();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: "GET,HEAD,POST",
+    credentials: true,
+    exposedHeaders: "*",
+  })
+);
+app.options("*", cors());
 
 app.get("/", (req, res) => {
   res.json({
@@ -43,7 +52,7 @@ const user = require("./src/Routes/user");
 const product = require("./src/Routes/products");
 
 app.use("/user", user);
-app.use(product); 
+app.use(product);
 
 app.listen(process.env.PORT, () => {
   console.log("Running on https://localhost:3000/");

@@ -53,7 +53,7 @@ const LeafletMap = ({ onLocationReceived }) => {
       ref={(div) => {
         mapContainerRef.current = div;
       }}
-      style={{ position: "relative", height: "300px", width: "1000px" }}
+      style={{ position: "relative", height: "300px", width: "100%" }}
     />
   );
 };
