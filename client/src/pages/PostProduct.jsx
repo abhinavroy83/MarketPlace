@@ -16,6 +16,7 @@ function PostProduct({ isOpen, onClose }) {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const onsubmit = async (data) => {
     const senddata = {
@@ -41,6 +42,7 @@ function PostProduct({ isOpen, onClose }) {
       if (res) {
         console.log(res);
         alert("product added successfully");
+        reset();
       }
     } catch (error) {
       console.log(error);

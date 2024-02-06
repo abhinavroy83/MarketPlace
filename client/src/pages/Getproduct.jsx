@@ -6,18 +6,24 @@ function Getproduct() {
   const cuurentlocation = useSelector((state) => state.auth.location);
   // console.log("first", cuurentlocation);
   const [products, setproducts] = useState([]);
-  useEffect(() => {
-    if (cuurentlocation) {
-      axios
-        .get(
+
+  const fetchdata = async () => {
+    try {
+      if (cuurentlocation) {
+        const res = await axios.get(
           `https://marketplace-8nn9.onrender.com/api/getProducts?lat=${cuurentlocation.lat}&lng=${cuurentlocation.lng}`
-        )
-        .then((res) => {
-          // console.log("data get from api", res.data.Products);
+        );
+        if (res) {
           setproducts(res.data.Products);
-        })
-        .catch((error) => console.log(error));
+        }
+      }
+    } catch (error) {
+      console.log("error during fetcing api", error);
     }
+  };
+
+  useEffect(() => {
+    fetchdata();
   }, [cuurentlocation]);
   return (
     <div>
@@ -27,9 +33,9 @@ function Getproduct() {
             Products Near you
           </p>
 
-          <div className="flex flex-wrap justify-evenly py-2">
+          <div className="flex flex-wrap justify-evenly py-2 my-2">
             {products.map((item, key) => (
-              <div key={key} className="w-[250px] rounded-md border mx-2">
+              <div key={key} className="w-[250px] rounded-md border mx-2 my-2">
                 <img
                   src={item.Imageurl}
                   alt="Laptop"
