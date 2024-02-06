@@ -1,31 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 // import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/authslice";
-
-const menuItems = [
-  {
-    name: "Home",
-    href: "#",
-  },
-  {
-    name: "About",
-    href: "#",
-  },
-  {
-    name: "Contact",
-    href: "#",
-  },
-];
+import { Link, useNavigate } from "react-router-dom";
+import PostProduct from "../pages/PostProduct";
 
 export default function Header() {
   const authstatus = useSelector((state) => state.auth.status);
-  console.log(authstatus);
+  // console.log(authstatus);
+  const [ismodalopen, setismodalopen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handlelogout = () => {
     dispatch(logout());
     localStorage.removeItem("userdetails");
+  };
+  const handlemodelopen = () => {
+    if (authstatus) {
+      setismodalopen(true);
+    }
+  };
+  const ismodelclose = () => {
+    setismodalopen(false);
   };
 
   return (
@@ -50,28 +47,41 @@ export default function Header() {
         </div>
         <div className="hidden grow items-start lg:flex">
           <ul className="ml-12 inline-flex space-x-8">
-            {menuItems.map((item) => (
-              <li key={item.name}>
-                <a
-                  href={item.href}
-                  className="inline-flex items-center text-sm font-semibold text-gray-800 hover:text-gray-900"
-                >
-                  {item.name}
-                </a>
-              </li>
-            ))}
+            <button
+              type="button"
+              onClick={() => {
+                navigate("/");
+              }}
+              className="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            >
+              Home
+            </button>
+            <button
+              type="button"
+              onClick={handlemodelopen}
+              className="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            >
+              Postproduct
+            </button>
           </ul>
         </div>
+        <PostProduct isOpen={ismodalopen} onClose={ismodelclose} />
         {!authstatus ? (
           <div className="hidden space-x-2 lg:block">
             <button
               type="button"
+              onClick={() => {
+                navigate("/signup");
+              }}
               className="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             >
               Sign In
             </button>
             <button
               type="button"
+              onClick={() => {
+                navigate("/postproduct");
+              }}
               className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             >
               Log In

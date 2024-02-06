@@ -9,6 +9,7 @@ import Home from "./components/Home.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { Authlayout } from "./components/index.js";
+import PostProduct from "./pages/PostProduct.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          <Authlayout>
+          <Authlayout authentication>
             <Home />
           </Authlayout>
         ),
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
           </Authlayout>
         ),
       },
+
     ],
   },
 ]);

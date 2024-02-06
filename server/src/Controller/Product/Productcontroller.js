@@ -8,9 +8,9 @@ exports.getProducts = async (req, res) => {
         $near: {
           $geometry: {
             type: "Point",
-            coordinates: [parseFloat(lng), parseFloat(lat)],
+            coordinates: [parseFloat(lat), parseFloat(lng)],
           },
-          $maxDistance: 10000,
+          $maxDistance: 1000000,
         },
       },
     });
@@ -37,7 +37,7 @@ exports.postProduct = async (req, res) => {
     await product.save();
     res.json(product);
   } catch (error) {
-     console.error("Error fetching products:", error);
+    console.error("Error fetching products:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

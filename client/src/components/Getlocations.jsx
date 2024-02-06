@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import LeafletMap from "./LeafletMap";
 import { useSelector } from "react-redux";
+import Container from "./Container/Container";
 
 function Getlocations() {
   const [currentlocation, setcurrentlocation] = useState(null);
   const [showmap, setshowmap] = useState(true);
-  const authlocation = useSelector((state) => state.auth.location);
-  console.log("authlocation", authlocation);
+
   useEffect(() => {
     Getlocations();
   }, []);
@@ -26,24 +26,21 @@ function Getlocations() {
   };
 
   return (
-    <div>
-      <h1>Your current location</h1>
-      <p>Map</p>
-      {currentlocation && showmap ? (
-        <LeafletMap onLocationReceived={currentlocation} />
-      ) : (
-        <div>
-          <p>loading</p>
-        </div>
-      )}
-      {authlocation ? (
-        <div>
-          <p>{authlocation.lat}</p>
-          <p>{authlocation.lng}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className="flex flex-col justify-center">
+      <Container>
+        <h1>Your current location</h1>
+
+        {currentlocation && showmap ? (
+          <div className=" flex justify-center">
+            <LeafletMap onLocationReceived={currentlocation} />
+            {/* <p>{currentlocation}</p> */}
+          </div>
+        ) : (
+          <div>
+            <p>loading</p>
+          </div>
+        )}
+      </Container>
     </div>
   );
 }

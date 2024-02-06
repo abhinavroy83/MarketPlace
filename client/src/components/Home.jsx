@@ -2,15 +2,15 @@ import React from "react";
 import Getlocations from "./Getlocations";
 import Header from "./Header";
 import { useSelector } from "react-redux";
+import Getproduct from "../pages/Getproduct";
+import Container from "./Container/Container";
 
 function Home() {
-  const currentlocation = useSelector((state) => state.auth.location);
   return (
-    <div className=" flex justify-center">
-      <h1>Home</h1>
-      {/* <Header /> */}
+    <Container>
       <Getlocations />
-    </div>
+      <Getproduct />
+    </Container>
   );
 }
 
